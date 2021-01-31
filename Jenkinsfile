@@ -2,19 +2,16 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Maven Build') {
             steps {
-                echo 'Building..'
+                bat 'mvn clean package'
             }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying on the staging server....'
+            post{
+                success{
+                    echo 'Archiving the project...'
+
+                    archiveArtifacts artifacts : '**/*.war'
+                }
             }
         }
     }
