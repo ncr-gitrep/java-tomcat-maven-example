@@ -14,5 +14,10 @@ pipeline {
                 }
             }
         }
+        stage('Deploy the build to staging Area'){
+            steps {
+                build job : 'Deploy_To_Tomcat_Pipeline'
+            }
+        }
     }
 }
